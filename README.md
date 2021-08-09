@@ -31,18 +31,6 @@ Modified by Max Howard for a special use case.
 
 ## Installation
 
-
-0. Create the databases
-
-```bash
-psql -d postgres -U root
-```
-
-```psql
-postgres=# create database takehome with owner root;
-postgres=# create database takehome_test with owner root;
-```
-
 1. You'll need [Docker and docker-compose][dc].
 
 ```bash
