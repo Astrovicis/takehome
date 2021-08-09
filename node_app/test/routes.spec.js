@@ -43,6 +43,31 @@ describe('API Routes', () => {
         })
     })
   })
+  describe('GET /api/v1/addresses', () => {
+    it('should return some addresses', (done) => {
+      chai
+        .request(server)
+        .get('/api/v1/addresses?keyword=M')
+        .end((err, res) => {
+          res.should.have.status(200)
+          res.should.be.json // jshint ignore:line
+          res.body.should.be.a('array')
+          res.body.length.should.equal(3)
+          res.body[2].should.have.property('line1')
+          res.body[2].line1.should.equal('500 S State St')
+          should.not.exist(res.body[2].line2)
+          res.body[2].should.have.property('city')
+          res.body[2].city.should.equal('Ann Arbor')
+          res.body[2].should.have.property('state')
+          res.body[2].state.should.equal('MI')
+          res.body[2].should.have.property('zip')
+          res.body[2].zip.should.equal('48109')
+          res.body[2].should.have.property('created_at')
+          res.body[2].should.have.property('updated_at')
+          done()
+        })
+    })
+  })
   describe('GET /api/v1/addresses/:id', () => {
     it('should return a single address', (done) => {
       chai
