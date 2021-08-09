@@ -7,7 +7,6 @@ const queries = require('../db/queries')
 router.get('/addresses', async (req, res, next) => {
   try {
     // This is awful validation. With more time, I would use Joi.
-    console.log(req.query.keyword)
     let addresses = await queries.getMatching({keyword: req.query.keyword} || '')
     res.status(200).json(addresses)
   } catch (error) {
