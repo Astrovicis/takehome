@@ -16,6 +16,7 @@
   - [Credits](#credits)
   - [Productionification Thoughts](#productionification-thoughts)
   - [What I've learned](#what-ive-learned)
+  - [Things I would add/change with more time](#things-i-would-addchange-with-more-time)
 
 ---
 
@@ -105,3 +106,9 @@ Please make sure to update tests as appropriate.
 - Docker compose is really useful
 - Null prototype objects should be null prototype objects as the req.body
 - Joi is great and I miss it
+
+## Things I would add/change with more time
+- Add Joi validation
+- Change db/queries.js to services/addresses.js
+- Make more secure the postgres container (nondefault passwords), especially with open port
+- De-hardcode the table columns queried by getMatching, whether with objection or knex
