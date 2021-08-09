@@ -1,3 +1,5 @@
-CREATE DATABASE mocha_chai_tv_shows;
-CREATE DATABASE mocha_chai_tv_shows_test;
-CREATE DATABASE mocha_chai_tv_shows_prod;
+CREATE DATABASE addresses;
+
+CREATE DATABASE addresses_test;
+
+CREATE DATABASE addresses_prod;

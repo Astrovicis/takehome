@@ -1,34 +1,52 @@
 [![MIT License][license-shield]][license-url]
 [![pipeline status][pipeline-shield]][pipeline-url]
 
-# tdd-node-shows
+# takehome-addresses
 
 ## Table of Contents
 
-- [About](#about)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Tests](#tests)
-- [Contributing](#contributing)
-- [License](#license)
-- [Credit](#credit)
+- [takehome-addresses](#takehome-addresses)
+  - [Table of Contents](#table-of-contents)
+  - [About](#about)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Tests](#tests)
+  - [Contributing](#contributing)
+  - [License](#license)
+  - [Credits](#credits)
+  - [Productionification Thoughts](#productionification-thoughts)
+  - [What I've learned](#what-ive-learned)
 
 ---
 
 ## About
 
-**tdd-node-shows** is a an example REST API developed with Docker, Node.js, PostgreSQL, and Knex.js.
+**takehome-addresses** is a an example REST API developed with Docker, Node.js, PostgreSQL, and Knex.js.
 
 See [Test Driven Development with Node, Postgres, and Knex (Red/Green/Refactor)][mherman] by Michael Herman for details.
 
 Dockerized with the help of Bret Fisher's [node-docker-good-defaults][nodedockerdefaults].
 
+Modified by Max Howard for a special use case.
+
 ## Installation
+
+
+0. Create the databases
+
+```bash
+psql -d postgres -U root
+```
+
+```psql
+postgres=# create database takehome with owner root;
+postgres=# create database takehome_test with owner root;
+```
 
 1. You'll need [Docker and docker-compose][dc].
 
 ```bash
-$ git clone git@github.com:sophiabrandt/tdd-node-shows.git && cd tdd-node-shows
+$ git clone git@github.com:Astrovicis/takehome.git && cd takehome
 ```
 
 2. Build Docker containers locally:
@@ -76,6 +94,7 @@ Please make sure to update tests as appropriate.
 
 - [Michael Herman][mherman]
 - [Bret Fisher][nodedockerdefaults]
+- [Max Howard][astrovicis]
 
 [dc]: https://docs.docker.com/compose/
 [mherman]: https://mherman.org/blog/test-driven-development-with-node/
@@ -84,3 +103,13 @@ Please make sure to update tests as appropriate.
 [license-url]: https://github.com/sophiabrandt/tdd-node-shows/blob/master/LICENSE
 [pipeline-shield]: https://gitlab.com/sophiabrandt/tdd-node-shows/badges/master/pipeline.svg?style=flat-square
 [pipeline-url]: https://gitlab.com/sophiabrandt/tdd-node-shows/-/commits/master
+
+## Productionification Thoughts
+
+- [docker-compose scale][https://docs.docker.com/compose/reference/scale/]
+- [Amazon ECS Applications via Docker Compose][https://aws.amazon.com/blogs/containers/deploy-applications-on-amazon-ecs-using-docker-compose/]
+
+## What I've learned
+- Docker compose is really useful
+- Null prototype objects should be null prototype objects as the req.body
+- Joi is great and I miss it

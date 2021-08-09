@@ -3,59 +3,63 @@ const router = express.Router()
 
 const queries = require('../db/queries')
 
-/* GET  all shows. */
-router.get('/shows', async (req, res, next) => {
+/* GET all addresses. */
+router.get('/addresses', async (req, res, next) => {
   try {
-    let shows = await queries.getAll()
-    res.status(200).json(shows)
+    // This is awful validation. With more time, I would use Joi.
+    console.log(req.query.keyword)
+    let addresses = await queries.getMatching({keyword: req.query.keyword} || '')
+    res.status(200).json(addresses)
   } catch (error) {
     next(error)
   }
 })
 
-/* GET single show. */
-router.get('/shows/:id', async (req, res, next) => {
+/* GET address by id */
+router.get('/addresses/:id', async (req, res, next) => {
   try {
-    let show = await queries.getSingle(req.params.id)
-    res.status(200).json(show)
+    let address = await queries.getByID(req.params.id)
+    res.status(200).json(address)
   } catch (error) {
     next(error)
   }
 })
 
-/* POST (add new) show. */
-router.post('/shows', async (req, res, next) => {
+/* POST new address (create) */
+router.post('/addresses', async (req, res, next) => {
   try {
-    let showID = await queries.add(req.body)
-    let show = await queries.getSingle(showID)
-    res.status(200).json(show)
+    // zero validation: very bad.
+    let addressID = await queries.add(req.body)
+    let address = await queries.getByID(addressID)
+    res.status(200).json(address)
   } catch (error) {
     next(error)
   }
 })
 
-/* PUT (update) show. */
-router.put('/shows/:id', async (req, res, next) => {
-  if (req.body.hasOwnProperty('id')) {
+/* PUT existing address (update) */
+router.put('/addresses/:id', async (req, res, next) => {
+  // terrible validation
+  if (req.body.id !== undefined) {
     return res.status(422).json({
       error: 'You cannot update the id field',
     })
   }
   try {
     await queries.update(req.params.id, req.body)
-    let show = await queries.getSingle(req.params.id)
-    res.status(200).json(show)
+    let address = await queries.getByID(req.params.id)
+    res.status(200).json(address)
   } catch (error) {
     next(error)
   }
 })
 
-/* DELETE show. */
-router.delete('/shows/:id', async (req, res, next) => {
+/* DELETE address */
+router.delete('/addresses/:id', async (req, res, next) => {
   try {
-    let show = await queries.getSingle(req.params.id)
+    let address = await queries.getByID(req.params.id)
     await queries.deleteItem(req.params.id)
-    res.status(200).json(show)
+    res.status(200).json(address)
   } catch (error) {
     next(error)
   }

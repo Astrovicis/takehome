@@ -1,5 +1,5 @@
 # pull base image
-FROM node:12.16.1-buster-slim
+FROM node:12.17.0-buster-slim
 
 # set our node environment, either development or production
 # defaults to production, compose overrides this to development on build and run

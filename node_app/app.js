@@ -6,7 +6,6 @@ const logger = require('morgan')
 const helmet = require('helmet')
 
 const indexRouter = require('./routes/index')
-const usersRouter = require('./routes/users')
 
 const app = express()
 
@@ -25,9 +24,8 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.get('/', (req, res) => res.redirect('/api/v1/shows'))
+app.get('/', (req, res) => res.redirect('/api/v1/addresses'))
 app.use('/api/v1', indexRouter)
-app.use('/users', usersRouter)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

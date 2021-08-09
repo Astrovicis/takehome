@@ -29,11 +29,11 @@ test:
   services:
     - postgres:12.2-alpine
   variables:
-      POSTGRES_DB: mocha_chai_tv_shows_test
+      POSTGRES_DB: addresses_test
       POSTGRES_USER: runner
       POSTGRES_PASSWORD: ""
       POSTGRES_HOST_AUTH_METHOD: trust
-      DATABASE_URL_TEST: postgres://runner@postgres:5432/mocha_chai_tv_shows_test
+      DATABASE_URL_TEST: postgres://runner@postgres:5432/addresses_test
       NODE_ENV: test
   script:
     - cd /opt/node_app/app

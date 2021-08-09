@@ -18,119 +18,124 @@ describe('API Routes', () => {
 
   afterEach(() => knex.migrate.rollback())
 
-  describe('GET /api/v1/shows', () => {
-    it('should return all shows', (done) => {
+  describe('GET /api/v1/addresses', () => {
+    it('should return all addresses', (done) => {
       chai
         .request(server)
-        .get('/api/v1/shows')
+        .get('/api/v1/addresses')
         .end((err, res) => {
           res.should.have.status(200)
           res.should.be.json // jshint ignore:line
           res.body.should.be.a('array')
-          res.body.length.should.equal(4)
-          res.body[0].should.have.property('name')
-          res.body[0].name.should.equal('Suits')
-          res.body[0].should.have.property('channel')
-          res.body[0].channel.should.equal('USA Network')
-          res.body[0].should.have.property('genre')
-          res.body[0].genre.should.equal('Drama')
-          res.body[0].should.have.property('rating')
-          res.body[0].rating.should.equal(3)
-          res.body[0].should.have.property('explicit')
-          res.body[0].explicit.should.equal(false)
+          res.body.length.should.equal(8)
+          res.body[0].should.have.property('line1')
+          res.body[0].line1.should.equal('Massachusetts Hall')
+          should.not.exist(res.body[0].line2)
+          res.body[0].should.have.property('city')
+          res.body[0].city.should.equal('Cambridge')
+          res.body[0].should.have.property('state')
+          res.body[0].state.should.equal('MA')
+          res.body[0].should.have.property('zip')
+          res.body[0].zip.should.equal('02138')
+          res.body[0].should.have.property('created_at')
+          res.body[0].should.have.property('updated_at')
           done()
         })
     })
   })
-  describe('GET /api/v1/shows/:id', () => {
-    it('should return a single show', (done) => {
+  describe('GET /api/v1/addresses/:id', () => {
+    it('should return a single address', (done) => {
       chai
         .request(server)
-        .get('/api/v1/shows/1')
+        .get('/api/v1/addresses/2')
         .end((err, res) => {
           res.should.have.status(200)
           res.should.be.json // jshint ignore:line
           res.body.should.be.a('object')
-          res.body.should.have.property('name')
-          res.body.name.should.equal('Suits')
-          res.body.should.have.property('channel')
-          res.body.channel.should.equal('USA Network')
-          res.body.should.have.property('genre')
-          res.body.genre.should.equal('Drama')
-          res.body.should.have.property('rating')
-          res.body.rating.should.equal(3)
-          res.body.should.have.property('explicit')
-          res.body.explicit.should.equal(false)
-          done()
-        })
-    })
-  })
-
-  describe('POST /api/v1/shows', () => {
-    it('should add a show', (done) => {
-      chai
-        .request(server)
-        .post('/api/v1/shows')
-        .send({
-          name: 'Family Guy',
-          channel: 'Fox',
-          genre: 'Comedy',
-          rating: 4,
-          explicit: true,
-        })
-        .end((err, res) => {
-          res.should.have.status(200)
-          res.should.be.json // jshint ignore:line
-          res.body.should.be.a('object')
-          res.body.should.have.property('name')
-          res.body.name.should.equal('Family Guy')
-          res.body.should.have.property('channel')
-          res.body.channel.should.equal('Fox')
-          res.body.should.have.property('genre')
-          res.body.genre.should.equal('Comedy')
-          res.body.should.have.property('rating')
-          res.body.rating.should.equal(4)
-          res.body.should.have.property('explicit')
-          res.body.explicit.should.equal(true)
+          res.body.should.have.property('line1')
+          res.body.line1.should.equal('3400 N. Charles St.')
+          res.body.should.have.property('line2')
+          should.not.exist(res.body.line2)
+          res.body.should.have.property('city')
+          res.body.city.should.equal('Baltimore')
+          res.body.should.have.property('state')
+          res.body.state.should.equal('MD')
+          res.body.should.have.property('zip')
+          res.body.zip.should.equal('21218')
+          res.body.should.have.property('created_at')
+          res.body.should.have.property('updated_at')
           done()
         })
     })
   })
 
-  describe('PUT /api/v1/shows/:id', () => {
-    it('should update a show', (done) => {
+  describe('POST /api/v1/addresses', () => {
+    it('should add an address', (done) => {
       chai
         .request(server)
-        .put('/api/v1/shows/1')
+        .post('/api/v1/addresses')
         .send({
-          rating: 4,
-          explicit: true,
+          line1: '1234 Milky Way NE',
+          city: 'Delta',
+          state: 'QA',
+          zip: '54321'
         })
         .end((err, res) => {
           res.should.have.status(200)
           res.should.be.json // jshint ignore:line
           res.body.should.be.a('object')
-          res.body.should.have.property('name')
-          res.body.name.should.equal('Suits')
-          res.body.should.have.property('channel')
-          res.body.channel.should.equal('USA Network')
-          res.body.should.have.property('genre')
-          res.body.genre.should.equal('Drama')
-          res.body.should.have.property('rating')
-          res.body.rating.should.equal(4)
-          res.body.should.have.property('explicit')
-          res.body.explicit.should.equal(true)
+          res.body.should.have.property('line1')
+          res.body.line1.should.equal('1234 Milky Way NE')
+          res.body.should.have.property('line2')
+          should.not.exist(res.body.line2)
+          res.body.should.have.property('city')
+          res.body.city.should.equal('Delta')
+          res.body.should.have.property('state')
+          res.body.state.should.equal('QA')
+          res.body.should.have.property('zip')
+          res.body.zip.should.equal('54321')
+          res.body.should.have.property('created_at')
+          res.body.should.have.property('updated_at')
+          res.body.created_at.should.equal(res.body.updated_at)
           done()
         })
     })
-    it('should NOT update a show if the id field is part of the request', (done) => {
+  })
+
+  describe('PUT /api/v1/addresses/:id', () => {
+    it('should update an address', (done) => {
       chai
         .request(server)
-        .put('/api/v1/shows/1')
+        .put('/api/v1/addresses/8')
         .send({
-          id: 20,
-          rating: 4,
-          explicit: true,
+          zip: '01234',
+        })
+        .end((err, res) => {
+          res.should.have.status(200)
+          res.should.be.json // jshint ignore:line
+          res.body.should.be.a('object')
+          res.body.should.have.property('line1')
+          res.body.line1.should.equal('185 Berry St')
+          res.body.should.have.property('line2')
+          res.body.line2.should.equal('Suite 6100')
+          res.body.should.have.property('city')
+          res.body.city.should.equal('San Francisco')
+          res.body.should.have.property('state')
+          res.body.state.should.equal('CA')
+          res.body.should.have.property('zip')
+          res.body.zip.should.equal('01234')
+          res.body.should.have.property('created_at')
+          res.body.should.have.property('updated_at')
+          done()
+        })
+    })
+    it('should NOT update an address if the id field is part of the request', (done) => {
+      chai
+        .request(server)
+        .put('/api/v1/addresses/1')
+        .send({
+          id: 8,
+          zip: '43210',
         })
         .end((err, res) => {
           res.should.have.status(422)
@@ -143,43 +148,45 @@ describe('API Routes', () => {
     })
   })
 
-  describe('DELETE /api/v1/shows/:id', () => {
-    it('should delete a show', (done) => {
+  describe('DELETE /api/v1/addresses/:id', () => {
+    it('should delete an address', (done) => {
       chai
         .request(server)
-        .delete('/api/v1/shows/1')
-        .end((error, response) => {
-          response.should.have.status(200)
-          response.should.be.json // jshint ignore:line
-          response.body.should.be.a('object')
-          response.body.should.have.property('name')
-          response.body.name.should.equal('Suits')
-          response.body.should.have.property('channel')
-          response.body.channel.should.equal('USA Network')
-          response.body.should.have.property('genre')
-          response.body.genre.should.equal('Drama')
-          response.body.should.have.property('rating')
-          response.body.rating.should.equal(3)
-          response.body.should.have.property('explicit')
-          response.body.explicit.should.equal(false)
+        .delete('/api/v1/addresses/8')
+        .end((error, res) => {
+          res.should.have.status(200)
+          res.should.be.json // jshint ignore:line
+          res.body.should.be.a('object')
+          res.body.should.have.property('line1')
+          res.body.line1.should.equal('185 Berry St')
+          res.body.should.have.property('line2')
+          res.body.line2.should.equal('Suite 6100')
+          res.body.should.have.property('city')
+          res.body.city.should.equal('San Francisco')
+          res.body.should.have.property('state')
+          res.body.state.should.equal('CA')
+          res.body.should.have.property('zip')
+          res.body.zip.should.equal('94107')
+          res.body.should.have.property('created_at')
+          res.body.should.have.property('updated_at')
           chai
             .request(server)
-            .get('/api/v1/shows')
+            .get('/api/v1/addresses')
             .end((err, res) => {
               res.should.have.status(200)
               res.should.be.json // jshint ignore:line
               res.body.should.be.a('array')
-              res.body.length.should.equal(3)
-              res.body[0].should.have.property('name')
-              res.body[0].name.should.equal('Game of Thrones')
-              res.body[0].should.have.property('channel')
-              res.body[0].channel.should.equal('HBO')
-              res.body[0].should.have.property('genre')
-              res.body[0].genre.should.equal('Fantasy')
-              res.body[0].should.have.property('rating')
-              res.body[0].rating.should.equal(5)
-              res.body[0].should.have.property('explicit')
-              res.body[0].explicit.should.equal(true)
+              res.body.length.should.equal(7)
+              res.body[6].should.have.property('line1')
+              res.body[6].line1.should.equal('500 S State St')
+              res.body[6].should.have.property('city')
+              res.body[6].city.should.equal('Ann Arbor')
+              res.body[6].should.have.property('state')
+              res.body[6].state.should.equal('MI')
+              res.body[6].should.have.property('zip')
+              res.body[6].zip.should.equal('48109')
+              res.body[6].should.have.property('created_at')
+              res.body[6].should.have.property('updated_at')
               done()
             })
         })
