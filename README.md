@@ -84,6 +84,7 @@ Please make sure to update tests as appropriate.
 - [Bret Fisher][nodedockerdefaults]
 - [Max Howard][astrovicis]
 
+[astrovicis]: https://github.com/astrovicis
 [dc]: https://docs.docker.com/compose/
 [mherman]: https://mherman.org/blog/test-driven-development-with-node/
 [nodedockerdefaults]: https://github.com/BretFisher/node-docker-good-defaults
@@ -94,8 +95,11 @@ Please make sure to update tests as appropriate.
 
 ## Productionification Thoughts
 
-- [docker-compose scale][https://docs.docker.com/compose/reference/scale/]
-- [Amazon ECS Applications via Docker Compose][https://aws.amazon.com/blogs/containers/deploy-applications-on-amazon-ecs-using-docker-compose/]
+- [docker-compose scale][scale]
+- [Amazon ECS Applications via Docker Compose][deploy-compose]
+
+[deploy-compose]: https://aws.amazon.com/blogs/containers/deploy-applications-on-amazon-ecs-using-docker-compose/
+[scale]: https://docs.docker.com/compose/reference/scale/
 
 ## What I've learned
 - Docker compose is really useful
